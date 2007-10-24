@@ -1,7 +1,3 @@
-# $Id$
+# $P4: //depot/projects/openpam/bin/Makefile.am#2 $
 
-SUBDIRS =
-
-if WITH_SU
-SUBDIRS += su
-endif
+SUBDIRS = su

@@ -31,7 +31,7 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- * $Id$
+ * $P4: //depot/projects/openpam/bin/su/su.c#12 $
  */
 
 #include <sys/param.h>
@@ -67,7 +67,6 @@ main(int argc, char *argv[])
 {
 	char hostname[MAXHOSTNAMELEN];
 	const char *user, *tty;
-	const void *item;
 	char **args, **pam_envlist, **pam_env;
 	struct passwd *pwd;
 	int o, pam_err, status;
@@ -123,8 +122,8 @@ main(int argc, char *argv[])
 		goto pamerr;
 
 	/* get mapped user name; PAM may have changed it */
-	pam_err = pam_get_item(pamh, PAM_USER, &item);
-	if (pam_err != PAM_SUCCESS || (pwd = getpwnam(user = item)) == NULL)
+	pam_err = pam_get_item(pamh, PAM_USER, (const void **)&user);
+	if (pam_err != PAM_SUCCESS || (pwd = getpwnam(user)) == NULL)
 		goto pamerr;
 
 	/* export PAM environment */

@@ -31,7 +31,7 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- * $Id$
+ * $P4: //depot/projects/openpam/include/security/openpam.h#28 $
  */
 
 #ifndef _SECURITY_OPENPAM_H_INCLUDED
@@ -41,8 +41,6 @@
  * Annoying but necessary header pollution
  */
 #include <stdarg.h>
-
-#include <security/pam_attributes.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -55,8 +53,7 @@ struct passwd;
  */
 int
 openpam_borrow_cred(pam_handle_t *_pamh,
-	const struct passwd *_pwd)
-	OPENPAM_NONNULL((1,2));
+	const struct passwd *_pwd);
 
 void
 openpam_free_data(pam_handle_t *_pamh,
@@ -71,8 +68,7 @@ openpam_get_option(pam_handle_t *_pamh,
 	const char *_option);
 
 int
-openpam_restore_cred(pam_handle_t *_pamh)
-	OPENPAM_NONNULL((1));
+openpam_restore_cred(pam_handle_t *_pamh);
 
 int
 openpam_set_option(pam_handle_t *_pamh,
@@ -82,62 +78,48 @@ openpam_set_option(pam_handle_t *_pamh,
 int
 pam_error(pam_handle_t *_pamh,
 	const char *_fmt,
-	...)
-	OPENPAM_FORMAT ((__printf__, 2, 3))
-	OPENPAM_NONNULL((1,2));
+	...);
 
 int
 pam_get_authtok(pam_handle_t *_pamh,
 	int _item,
 	const char **_authtok,
-	const char *_prompt)
-	OPENPAM_NONNULL((1,3));
+	const char *_prompt);
 
 int
 pam_info(pam_handle_t *_pamh,
 	const char *_fmt,
-	...)
-	OPENPAM_FORMAT ((__printf__, 2, 3))
-	OPENPAM_NONNULL((1,2));
+	...);
 
 int
 pam_prompt(pam_handle_t *_pamh,
 	int _style,
 	char **_resp,
 	const char *_fmt,
-	...)
-	OPENPAM_FORMAT ((__printf__, 4, 5))
-	OPENPAM_NONNULL((1,4));
+	...);
 
 int
 pam_setenv(pam_handle_t *_pamh,
 	const char *_name,
 	const char *_value,
-	int _overwrite)
-	OPENPAM_NONNULL((1,2,3));
+	int _overwrite);
 
 int
 pam_vinfo(pam_handle_t *_pamh,
 	const char *_fmt,
-	va_list _ap)
-	OPENPAM_FORMAT ((__printf__, 2, 0))
-	OPENPAM_NONNULL((1,2));
+	va_list _ap);
 
 int
 pam_verror(pam_handle_t *_pamh,
 	const char *_fmt,
-	va_list _ap)
-	OPENPAM_FORMAT ((__printf__, 2, 0))
-	OPENPAM_NONNULL((1,2));
+	va_list _ap);
 
 int
 pam_vprompt(pam_handle_t *_pamh,
 	int _style,
 	char **_resp,
 	const char *_fmt,
-	va_list _ap)
-	OPENPAM_FORMAT ((__printf__, 4, 0))
-	OPENPAM_NONNULL((1,4));
+	va_list _ap);
 
 /*
  * Read cooked lines.
@@ -148,8 +130,7 @@ pam_vprompt(pam_handle_t *_pamh,
 char *
 openpam_readline(FILE *_f,
 	int *_lineno,
-	size_t *_lenp)
-	OPENPAM_NONNULL((1));
+	size_t *_lenp);
 #endif
 
 /*
@@ -170,8 +151,10 @@ _openpam_log(int _level,
 	const char *_func,
 	const char *_fmt,
 	...)
-	OPENPAM_FORMAT ((__printf__, 3, 4))
-	OPENPAM_NONNULL((3));
+#if defined(__GNUC__)
+	__attribute__((__format__(__printf__, 3, 4)))
+#endif
+	;
 
 #if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)
 #define openpam_log(lvl, ...) \
@@ -189,9 +172,7 @@ _openpam_log(int _level,
 void
 openpam_log(int _level,
 	const char *_format,
- 	...)
- 	OPENPAM_FORMAT ((__printf__, 2, 3))
-	OPENPAM_NONNULL((2));
+	...);
 #endif
 
 /*

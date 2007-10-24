@@ -31,7 +31,7 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- * $Id$
+ * $P4: //depot/projects/openpam/modules/pam_permit/pam_permit.c#9 $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -47,10 +47,6 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags,
 	int argc, const char *argv[])
 {
 
-	(void)pamh;
-	(void)flags;
-	(void)argc;
-	(void)argv;
 	return (PAM_SUCCESS);
 }
 
@@ -59,10 +55,6 @@ pam_sm_setcred(pam_handle_t *pamh, int flags,
 	int argc, const char *argv[])
 {
 
-	(void)pamh;
-	(void)flags;
-	(void)argc;
-	(void)argv;
 	return (PAM_SUCCESS);
 }
 
@@ -71,10 +63,6 @@ pam_sm_acct_mgmt(pam_handle_t *pamh, int flags,
 	int argc, const char *argv[])
 {
 
-	(void)pamh;
-	(void)flags;
-	(void)argc;
-	(void)argv;
 	return (PAM_SUCCESS);
 }
 
@@ -83,10 +71,6 @@ pam_sm_open_session(pam_handle_t *pamh, int flags,
 	int argc, const char *argv[])
 {
 
-	(void)pamh;
-	(void)flags;
-	(void)argc;
-	(void)argv;
 	return (PAM_SUCCESS);
 }
 
@@ -95,10 +79,6 @@ pam_sm_close_session(pam_handle_t *pamh, int flags,
 	int argc, const char *argv[])
 {
 
-	(void)pamh;
-	(void)flags;
-	(void)argc;
-	(void)argv;
 	return (PAM_SUCCESS);
 }
 
@@ -107,10 +87,6 @@ pam_sm_chauthtok(pam_handle_t *pamh, int flags,
 	int argc, const char *argv[])
 {
 
-	(void)pamh;
-	(void)flags;
-	(void)argc;
-	(void)argv;
 	return (PAM_SUCCESS);
 }
 

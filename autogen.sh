@@ -1,10 +1,10 @@
-#!/bin/sh
+#!/bin/sh -ex
 #
-# $Id$
+# $P4: //depot/projects/openpam/autogen.sh#2 $
 #
 
-aclocal
 libtoolize --copy --force
+aclocal
 autoheader
 automake -a -c --foreign
 autoconf

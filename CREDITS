@@ -14,7 +14,6 @@ or indirectly, with patches, criticism, suggestions, or ideas:
 	Andrew Morgan <morgan@transmeta.com>
 	Brian Fundakowski Feldman <green@freebsd.org>
 	Christos Zoulas <christos@netbsd.org>
-	Daniel Richard G. <skunk@iskunk.org>
 	Darren J. Moffat <Darren.Moffat@sun.com>
 	Dmitry V. Levin <ldv@altlinux.org>
 	Emmanuel Dreyfus <manu@netbsd.org>
@@ -30,7 +29,6 @@ or indirectly, with patches, criticism, suggestions, or ideas:
 	Ruslan Ermilov <ru@freebsd.org>
 	Solar Designer <solar@openwall.com>
 	Takanori Saneto <sanewo@ba2.so-net.ne.jp>
-	Wojciech A. Koszek <wkoszek@freebsd.org>
 	Yar Tikhiy <yar@freebsd.org>
 
-$Id$
+$P4: //depot/projects/openpam/CREDITS#12 $

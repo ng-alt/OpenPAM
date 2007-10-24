@@ -1,11 +1,3 @@
-OpenPAM Xxx							2005-XX-XX
-
- - ENHANCE: when compiling with GCC, mark up API functions with GCC
-   attributes where appropriate.
-
-Thanks to Dmitry V. Levin <ldv@altlinux.org> for his assistance with
-this release.
-============================================================================
 OpenPAM Figwort							2005-06-16
 
  - BUGFIX: Correct several small signedness and initialization bugs
@@ -312,4 +304,4 @@ OpenPAM	Calamite						2002-02-09
 
 First (beta) release.
 ============================================================================
-$Id$
+$P4: //depot/projects/openpam/HISTORY#24 $
