@@ -2,7 +2,7 @@ dnl $Id$
 
 AC_PREREQ(2.59)
 AC_REVISION([$Id$])
-AC_INIT([OpenPAM],[trunk],[des@des.no])
+AC_INIT([OpenPAM],[20071221],[des@des.no])
 AC_CONFIG_SRCDIR(lib/pam_start.c)
 AM_CONFIG_HEADER(config.h)
 
