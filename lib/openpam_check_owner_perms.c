@@ -104,11 +104,9 @@ openpam_check_path_owner_perms(const char *path)
 	len = strlen(pathbuf);
 	while (len > 0) {
 		if (stat(pathbuf, &sb) != 0) {
-			if (errno != ENOENT) {
-				serrno = errno;
-				openpam_log(PAM_LOG_ERROR, "%s: %m", pathbuf);
-				errno = serrno;
-			}
+			serrno = errno;
+			openpam_log(PAM_LOG_ERROR, "%s: %m", pathbuf);
+			errno = serrno;
 			return (-1);
 		}
 		if ((sb.st_uid != root && sb.st_uid != arbitrator) ||
