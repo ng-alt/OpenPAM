@@ -2,7 +2,7 @@ dnl $Id$
 
 AC_PREREQ([2.62])
 AC_REVISION([$Id$])
-AC_INIT([OpenPAM], [trunk], [des@des.no], [openpam], [http://www.openpam.org/])
+AC_INIT([OpenPAM], [nooath], [des@des.no], [openpam], [http://www.openpam.org/])
 AC_CONFIG_SRCDIR([lib/libpam/pam_start.c])
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([foreign])
@@ -67,12 +67,6 @@ AC_ARG_WITH([pam-unix],
     [with_pam_unix=no])
 AM_CONDITIONAL([WITH_PAM_UNIX], [test x"$with_pam_unix" = x"yes"])
 
-AC_ARG_WITH([oath],
-    AC_HELP_STRING([--with-oath], [compile OATH library, module and utility]),
-    [],
-    [with_oath=no])
-AM_CONDITIONAL([WITH_OATH], [test x"$with_oath" = x"yes"])
-
 AC_ARG_WITH(pamtest,
     AC_HELP_STRING([--with-pamtest], [compile test application]),
     [],
@@ -135,13 +129,11 @@ AC_CONFIG_FILES([
     include/Makefile
     include/security/Makefile
     lib/Makefile
-    lib/liboath/Makefile
     lib/libpam/Makefile
     modules/Makefile
     modules/pam_deny/Makefile
     modules/pam_permit/Makefile
     modules/pam_unix/Makefile
-    modules/pam_oath/Makefile
     t/Makefile
 ])
 AC_CONFIG_FILES([pamgdb],[chmod +x pamgdb])

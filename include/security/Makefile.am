@@ -10,11 +10,3 @@ security_HEADERS = \
 	pam_constants.h \
 	pam_modules.h \
 	pam_types.h
-
-if WITH_OATH
-security_HEADERS += \
-	oath.h \
-	oath_constants.h \
-	oath_rfc4648.h \
-	oath_types.h
-endif

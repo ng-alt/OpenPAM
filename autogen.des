@@ -11,7 +11,6 @@ set -ex
 export CONFIG_SHELL=/bin/sh
 
 ./configure \
-	--with-oath \
 	--with-doc \
 	--with-pam-unix \
 	--with-pamtest \
