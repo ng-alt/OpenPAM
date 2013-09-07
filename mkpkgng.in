@@ -1,4 +1,31 @@
 #!/bin/sh
+#-
+# Copyright (c) 2013 Dag-Erling Smørgrav
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+# 1. Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+# 3. The name of the author may not be used to endorse or promote
+#    products derived from this software without specific prior written
+#    permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+# FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+# OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+# HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+# OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+# SUCH DAMAGE.
 #
 # $Id$
 #
@@ -42,7 +69,7 @@ cd "$srcdir"
 #
 # Determine pkgng version and ABI
 #
-pkgver=$(pkg query %v pkg)
+pkgver=$(pkg -vv | awk '$1 == "Version:" { print $2 }')
 [ -n "$pkgver" ] || error "Unable to determine pkgng version."
 pkgabi=$(pkg -vv | awk '$1 == "ABI:" { print $2 }')
 [ -n "$pkgabi" ] || error "Unable to determine package ABI."
@@ -73,28 +100,29 @@ make="$make --no-print-directory --quiet V=0"
 #
 # Create temporary directory
 #
-info "Creating temporary directory."
+info "Creating the temporary directory."
 tmproot=$(mktemp -d "${TMPDIR:-/tmp}/$package-$version.XXXXXX")
-[ -n "$tmproot" -a -d "$tmproot" ] || error "unable to create temporary directory"
+[ -n "$tmproot" -a -d "$tmproot" ] || \
+    error "Unable to create the temporary directory."
 trap "exit 1" INT
-trap "info Deleting temporary directory. ; rm -rf '$tmproot'" EXIT
+trap "info Deleting the temporary directory. ; rm -rf '$tmproot'" EXIT
 set -e
 
 #
 # Install into tmproot
 #
-info "Installing into temporary directory."
+info "Installing into the temporary directory."
 $make install DESTDIR="$tmproot"
 
 #
 # Generate stub manifest
 #
-info "Generating stub manifest."
+info "Generating the stub manifest."
 manifest="$tmproot/+MANIFEST"
 cat >"$manifest" <<EOF
 name: $package
 version: $version
-origin: local/openpam
+origin: local/$package
 comment: BSD-licensed PAM implementation
 arch: $pkgabi
 www: @PACKAGE_URL@
@@ -112,8 +140,10 @@ desc:
 categories: local, security
 EOF
 
+#
 # Generate file list
-info "Generating file list."
+#
+info "Generating the file list."
 (
 	echo "files:"
 	find "$tmproot" -type f | while read file ; do
@@ -124,18 +154,13 @@ info "Generating file list."
 	done
 )>>"$manifest"
 
-# As of pkg 1.1.4, the shlib detection logic in "pkg create" only
-# works when tmproot == "/", so instead of creating a package directly
-# from the contents of $tmproot, we have to install to / and package
-# that.
-info "Packaging."
-if [ "$pkgver" \< "1.1.5" ] ; then
-	info "pkg 1.1.4 or older detected."
-	yesno "We must now install to /.  Proceed?" || error "Chicken."
-	$make install
-	pkg create -m "$tmproot" -o "$builddir"
-else
-	pkg create -r "$tmproot" -m "$tmproot" -o "$builddir"
-fi
+#
+# Create the package
+#
+info "Creating the package."
+pkg create -r "$tmproot" -m "$tmproot" -o "$builddir"
 
-echo "Package created for $package-$version."
+#
+# Done
+#
+info "Package created for $package-$version."
