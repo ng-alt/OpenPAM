@@ -1,4 +1,4 @@
-OpenPAM ??????????						2013-??-??
+OpenPAM Nummularia						2013-09-07
 
  - ENHANCE: Rewrite the dynamic loader to improve readability and
    reliability.  Modules can now be listed without the ".so" suffix in
