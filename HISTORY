@@ -4,6 +4,9 @@ OpenPAM ??????????						2014-??-??
    module (or misspelling the name of a module) in a policy could
    result in a fail-open scenario.
 
+ - FEATURE: Add a search path for modules.  This was implemented in
+   Nummularia but inadvertantly left out of the release notes.
+
  - BUGFIX: The is_upper() predicate only accepted the letter A as an
    upper-case character instead of the entire A-Z range.  As a result,
    service and module names containing upper-case letters other than A
