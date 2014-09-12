@@ -55,7 +55,7 @@ m/OPENPAM_VERSION/ && s/\d{8}/'"${isodate}"'/;
 
 echo "configure.ac"
 perl -p -i -e '
-m/AC_INIT/ && s/trunk|\d{8}/'"${isodate}"'/
+m/AC_INIT/ && s/nooath|\d{8}/'"${isodate}"'/
 ' configure.ac
 
 echo "man pages"

@@ -2,7 +2,7 @@ dnl $Id$
 
 AC_PREREQ([2.62])
 AC_REVISION([$Id$])
-AC_INIT([OpenPAM], [trunk], [des@des.no], [openpam], [http://www.openpam.org/])
+AC_INIT([OpenPAM], [20140912], [des@des.no], [openpam], [http://www.openpam.org/])
 AC_CONFIG_SRCDIR([lib/libpam/pam_start.c])
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([foreign])
@@ -62,25 +62,19 @@ AC_ARG_WITH([doc],
 AM_CONDITIONAL([WITH_DOC], [test x"$with_doc" = x"yes"])
 
 AC_ARG_WITH([pam-unix],
-    AC_HELP_STRING([--with-pam-unix], [build sample pam_unix(8) module]),
+    AC_HELP_STRING([--with-pam-unix], [compile sample pam_unix(8) module]),
     [],
     [with_pam_unix=no])
 AM_CONDITIONAL([WITH_PAM_UNIX], [test x"$with_pam_unix" = x"yes"])
 
-AC_ARG_WITH([oath],
-    AC_HELP_STRING([--without-oath], [do not build OATH library, module and utility]),
-    [],
-    [with_oath=yes])
-AM_CONDITIONAL([WITH_OATH], [test x"$with_oath" = x"yes"])
-
 AC_ARG_WITH(pamtest,
-    AC_HELP_STRING([--with-pamtest], [build test application]),
+    AC_HELP_STRING([--with-pamtest], [compile test application]),
     [],
     [with_pamtest=no])
 AM_CONDITIONAL([WITH_PAMTEST], [test x"$with_pamtest" = x"yes"])
 
 AC_ARG_WITH(su,
-    AC_HELP_STRING([--with-su], [build sample su(1) implementation]),
+    AC_HELP_STRING([--with-su], [compile sample su(1) implementation]),
     [],
     [with_su=no])
 AM_CONDITIONAL([WITH_SU], [test x"$with_su" = x"yes"])
@@ -127,7 +121,6 @@ AC_ARG_ENABLE([werror],
 AC_CONFIG_FILES([
     Makefile
     bin/Makefile
-    bin/oathkey/Makefile
     bin/openpam_dump_policy/Makefile
     bin/pamtest/Makefile
     bin/su/Makefile
@@ -136,13 +129,11 @@ AC_CONFIG_FILES([
     include/Makefile
     include/security/Makefile
     lib/Makefile
-    lib/liboath/Makefile
     lib/libpam/Makefile
     modules/Makefile
     modules/pam_deny/Makefile
     modules/pam_permit/Makefile
     modules/pam_unix/Makefile
-    modules/pam_oath/Makefile
     t/Makefile
 ])
 AC_CONFIG_FILES([pamgdb],[chmod +x pamgdb])

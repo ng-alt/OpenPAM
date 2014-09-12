@@ -347,9 +347,6 @@ sub parse_source($) {
     if ($source !~ m/^ \* XSSO \d/m) {
 	$FUNCTIONS{$func}->{openpam} = 1;
     }
-    if ($func =~ m/^oath/) {
-	$FUNCTIONS{$func}->{oath} = 1;
-    }
     expand_errors($FUNCTIONS{$func});
     return $FUNCTIONS{$func};
 }
@@ -449,33 +446,16 @@ sub gendoc($) {
 .Sh NAME
 .Nm $$func{name}
 .Nd $$func{descr}
-";
-    if ($func =~ m/^(?:open)?pam_/) {
-	$mdoc .= ".Sh LIBRARY
+.Sh LIBRARY
 .Lb libpam
-";
-    } elsif ($func =~ m/^oath_/) {
-	$mdoc .= ".Sh LIBRARY
-.Lb liboath
-";
-    }
-    $mdoc .= ".Sh SYNOPSIS
+.Sh SYNOPSIS
 .In sys/types.h
 ";
-    if ($$func{name} =~ m/^oath/) {
-	$mdoc .= ".In stdint.h\n";
-    }
     if ($$func{args} =~ m/\bFILE \*\b/) {
 	$mdoc .= ".In stdio.h\n";
     }
-    if ($$func{name} =~ m/^oath/) {
-	$mdoc .= ".In security/oath.h
+    $mdoc .= ".In security/pam_appl.h
 ";
-    }
-    if ($$func{name} =~ m/^(?:open)?pam/) {
-	$mdoc .= ".In security/pam_appl.h
-";
-    }
     if ($$func{name} =~ m/_sm_/) {
 	$mdoc .= ".In security/pam_modules.h\n";
     }
@@ -541,8 +521,6 @@ on failure.
 .Fn $$func{name}
 function is an OpenPAM extension.
 ";
-    } elsif ($$func{oath}) {
-	# nothing yet
     } else {
 	$mdoc .= ".Rs
 .%T \"X/Open Single Sign-On Service (XSSO) - Pluggable Authentication Modules\"
@@ -573,7 +551,7 @@ sub readproto($) {
     open(FILE, "<", "$fn")
 	or die("$fn: open(): $!\n");
     while (<FILE>) {
-	if (m/^\.Nm ((?:(?:open)?pam|oath)_.*?)\s*$/) {
+	if (m/^\.Nm ((?:open)?pam_.*?)\s*$/) {
 	    $func{Nm} = $func{Nm} || $1;
 	} elsif (m/^\.Ft (\S.*?)\s*$/) {
 	    $func{Ft} = $func{Ft} || $1;
@@ -621,8 +599,6 @@ sub gensummary($) {
 .Sh SYNOPSIS\n";
     if ($page eq 'pam') {
 	print FILE ".In security/pam_appl.h\n";
-    } elsif ($page eq 'oath') {
-	print FILE ".In security/oath.h\n";
     } else {
 	print FILE ".In security/openpam.h\n";
     }
@@ -657,21 +633,23 @@ The following return codes are defined by
 	++$xref{3}->{$func};
     }
     print FILE genxref(\%xref);
-    if ($page eq 'oath') {
-        print FILE ".Sh AUTHORS
-The OATH library and this manual page were $AUTHORS{UIO}
-";
-    } else {
-        print FILE ".Sh STANDARDS
+    print FILE ".Sh STANDARDS
 .Rs
 .%T \"X/Open Single Sign-On Service (XSSO) - Pluggable Authentication Modules\"
 .%D \"June 1997\"
 .Re
+.Sh AUTHORS
+The OpenPAM library and this manual page were developed for the
+.Fx
+Project by ThinkSec AS and Network Associates Laboratories, the
+Security Research Division of Network Associates, Inc.\\& under
+DARPA/SPAWAR contract N66001-01-C-8035
+.Pq Dq CBOSS ,
+as part of the DARPA CHATS research program.
+.Pp
+The OpenPAM library is maintained by
+.An Dag-Erling Sm\\(/orgrav Aq des\@des.no .
 ";
-	print FILE ".Sh AUTHORS
-The OpenPAM library and this manual page were $AUTHORS{THINKSEC}
-";
-    }
     close(FILE);
 }
 
@@ -685,15 +663,13 @@ MAIN:{
     my %opts;
 
     usage()
-	unless (@ARGV && getopts("aop", \%opts));
+	unless (@ARGV && getopts("op", \%opts));
     $TODAY = strftime("%B %e, %Y", localtime(time()));
     $TODAY =~ s,\s+, ,g;
-    if ($opts{a} || $opts{o} || $opts{p}) {
+    if ($opts{o} || $opts{p}) {
 	foreach my $fn (@ARGV) {
 	    readproto($fn);
 	}
-	gensummary('oath')
-	    if ($opts{a});
 	gensummary('openpam')
 	    if ($opts{o});
 	gensummary('pam')
