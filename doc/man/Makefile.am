@@ -65,7 +65,6 @@ EXTRA_DIST = openpam.man pam.man
 
 ALLCMAN = $(PMAN) $(MMAN) $(OMAN)
 GENMAN = $(ALLCMAN) openpam.3 pam.3
-endif
 
 ALLCMAN = $(PAMCMAN) $(OATHCMAN)
 GENMAN = $(ALLCMAN) $(PAMXMAN) $(OATHXMAN)
