@@ -223,6 +223,20 @@ T_FUNC(whitespace_before_comment, "whitespace before comment")
 	return (ret);
 }
 
+T_FUNC(line_continuation_within_whitespace, "line continuation within whitespace")
+{
+	struct t_file *tf;
+	int ret;
+
+	tf = t_fopen(NULL);
+	t_fprintf(tf, "%s \\\n %s\n", hello_world[0], hello_world[1]);
+	t_frewind(tf);
+	ret = orlv_expect(tf, hello_world, 2 /*lines*/, 0 /*eof*/) &&
+	    orlv_expect(tf, NULL, 0 /*lines*/, 1 /*eof*/);
+	t_fclose(tf);
+	return (ret);
+}
+
 
 /***************************************************************************
  * Simple words
@@ -288,13 +302,14 @@ T_FUNC(unterminated_line, "unterminated line")
  * Boilerplate
  */
 
-const struct t_test *t_plan[] = {
+static const struct t_test *t_plan[] = {
 	T(empty_input),
 	T(empty_line),
 	T(unterminated_empty_line),
 	T(whitespace),
 	T(comment),
 	T(whitespace_before_comment),
+	T(line_continuation_within_whitespace),
 
 	T(one_word),
 	T(two_words),
