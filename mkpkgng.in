@@ -27,7 +27,7 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 #
-# $Id$
+# $Id: mkpkgng.in 740 2013-09-07 13:03:20Z des $
 #
 
 # Print an informational message

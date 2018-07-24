@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id$
+# $Id: autogen.sh 709 2013-08-18 14:47:20Z des $
 #
 
 aclocal -I m4

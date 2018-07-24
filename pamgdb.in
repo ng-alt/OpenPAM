@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id$
+# $Id: pamgdb.in 648 2013-03-05 17:54:27Z des $
 #
 
 srcdir="@abs_top_srcdir@"

@@ -1,4 +1,4 @@
-# $Id$
+# $Id: Makefile.am 648 2013-03-05 17:54:27Z des $
 
 AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/lib/libpam
 

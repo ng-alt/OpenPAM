@@ -32,7 +32,7 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- * $Id$
+ * $Id: openpam_readline.c 703 2013-08-16 11:57:54Z des $
  */
 
 #ifdef HAVE_CONFIG_H

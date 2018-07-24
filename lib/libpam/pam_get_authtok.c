@@ -32,7 +32,7 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- * $Id$
+ * $Id: pam_get_authtok.c 670 2013-03-17 19:26:07Z des $
  */
 
 #ifdef HAVE_CONFIG_H

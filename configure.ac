@@ -1,12 +1,14 @@
-dnl $Id$
+dnl $Id: configure.ac 741 2013-09-07 13:34:02Z des $
 
 AC_PREREQ([2.62])
-AC_REVISION([$Id$])
+AC_REVISION([$Id: configure.ac 741 2013-09-07 13:34:02Z des $])
 AC_INIT([OpenPAM], [20130907], [des@des.no], [openpam], [http://www.openpam.org/])
 AC_CONFIG_SRCDIR([lib/libpam/pam_start.c])
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([foreign])
 AM_CONFIG_HEADER([config.h])
+
+AM_MAINTAINER_MODE
 
 # C compiler and features
 AC_LANG(C)

@@ -1,4 +1,4 @@
-# $Id$
+# $Id: Makefile.am 690 2013-08-15 13:22:51Z des $
 
 if CUSTOM_MODULES_DIR
 moduledir = @OPENPAM_MODULES_DIR@

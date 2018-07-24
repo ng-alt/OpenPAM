@@ -32,7 +32,7 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- * $Id$
+ * $Id: openpam_ttyconv.c 688 2013-07-11 16:40:08Z des $
  */
 
 #ifdef HAVE_CONFIG_H
